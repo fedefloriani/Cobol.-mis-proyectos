@@ -1,0 +1,110 @@
+ ******************************************************************
+      * Author:FEDERICO FLORIANI
+      * Date:26/03/2020
+      * Purpose:APRENDIZAJE.
+      * Tectonics: cobc
+      ******************************************************************
+       IDENTIFICATION DIVISION.
+      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+       PROGRAM-ID. SUPERCALCULADORA.
+       ENVIRONMENT DIVISION.
+      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+       CONFIGURATION SECTION.
+      *-----------------------
+       INPUT-OUTPUT SECTION.
+      *-----------------------
+       DATA DIVISION.
+      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+       FILE SECTION.
+      *-----------------------
+       WORKING-STORAGE SECTION.
+       077 WKS-NUMERO-1        PIC S9(04)V99.
+       077 WKS-NUMERO-2        PIC S9(04)V99.
+       077 WKS-RESULTADO       PIC S9(05)V99.
+       077 WKS-OPCION          PIC X(01).
+       077 WKS-ELECCION        PIC X(1).
+       077 WKS-RESUL-SALIDA    PIC -ZZZZZZZZZ9.99.
+      *-----------------------
+       PROCEDURE DIVISION.
+      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+           MAIN-PROCEDURE.
+      **
+      * The main procedure of the program
+      **    AREA DE PERFORM ***********
+           PERFORM 00-RUTINA-BIENVENIDA UNTIL WKS-ELECCION=2.
+
+            STOP RUN.
+
+           00-RUTINA-BIENVENIDA.
+           DISPLAY "HOLA, BIENVENIDOS A MI CALCULADORA"
+           DISPLAY "SI DESEA USAR EL PROGRAMA INGRESE 1"
+           DISPLAY "SI DESEA SALIR PRESIONE 2 "
+
+           ACCEPT WKS-ELECCION
+           IF WKS-ELECCION= 1
+                 PERFORM 01-RUTINA-ENTRADA
+                 PERFORM 02-RUTINA-PRINCIPAL
+           ELSE
+           IF WKS-ELECCION=2
+               NEXT SENTENCE
+           ELSE
+
+           DISPLAY "COMANDO NO VALIDO,VERIFIQUE".
+
+           01-RUTINA-ENTRADA.
+            DISPLAY "INGRESA EL PRIMER NUMERO: "
+            ACCEPT WKS-NUMERO-1
+            DISPLAY "INGRESA EL SEGUNDO NUMERO: "
+            ACCEPT WKS-NUMERO-2
+            DISPLAY "INDICA LA OPERACION QUE DESEAS: S=SUMA
+            R=RESTA, M=MULTIPLICAR, D=DIVIDIR, P=POTENCIA,
+            - C=RAIZ"
+            ACCEPT WKS-OPCION.
+
+           02-RUTINA-PRINCIPAL.
+           IF WKS-OPCION= "S" or "s"
+            ADD WKS-NUMERO-1 TO WKS-NUMERO-2 GIVING WKS-RESULTADO
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+           ELSE
+            IF WKS-OPCION="R" OR "r"
+            SUBTRACT WKS-NUMERO-1 FROM WKS-NUMERO-2
+            GIVING WKS-RESULTADO
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+           ELSE
+
+            IF WKS-OPCION="M" or "m"
+            MULTIPLY WKS-NUMERO-1 BY WKS-NUMERO-2
+            GIVING WKS-RESULTADO
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+           ELSE
+
+            IF WKS-OPCION="D" or "d"
+
+            DIVIDE WKS-NUMERO-1 INTO WKS-NUMERO-2 GIVING WKS-RESULTADO
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+            ELSE
+            IF WKS-NUMERO-2=0
+
+            DISPLAY "COMANDO NO VALIDO, REINGRESE UN COMANDO VALIDO"
+            ELSE
+            IF WKS-OPCION= "P" OR "p"
+            COMPUTE WKS-RESULTADO= WKS-NUMERO-1 ** WKS-NUMERO-2
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+            ELSE
+            IF WKS-OPCION="C" OR "c"
+            COMPUTE WKS-RESULTADO= WKS-NUMERO-1 ** (1/WKS-NUMERO-2)
+            MOVE WKS-RESULTADO TO WKS-RESUL-SALIDA
+            DISPLAY WKS-RESUL-SALIDA
+
+            STOP "PAUSA".
+      ** add other procedures here
+
+
+
+       END PROGRAM SUPERCALCULADORA.
